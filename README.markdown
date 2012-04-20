@@ -34,6 +34,12 @@ Usage
 
 ```
 
+Dependencies
+------------
+
+* Python (in theory any version >= 2.3, but I only tested it on 2.7)
+* Tornado (only tested on version 2.2, but should work on earlier versions)
+
 Running Tests
 -------------
 
