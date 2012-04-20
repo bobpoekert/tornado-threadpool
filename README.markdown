@@ -25,7 +25,7 @@ Usage
         # When called, it will always return immediately,
         # and do its work at some future time in a thread pool.
         # NOTE: Methods decorated with @in_thread_pool are expected not to have a return value.
-        calback(get_thing_from_database())
+        callback(get_thing_from_database())
 
     @in_ioloop
     def non_blocking_method(callback, data):
