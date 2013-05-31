@@ -24,7 +24,6 @@ Usage
         # Call some blocking api, like a database driver.
         # When called, it will always return immediately,
         # and do its work at some future time in a thread pool.
-        # NOTE: Methods decorated with @in_thread_pool are expected not to have a return value.
         callback(get_thing_from_database())
 
     @in_ioloop
