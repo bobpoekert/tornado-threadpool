@@ -8,23 +8,26 @@ class ThreadPool(object):
 
     def __init__(self, max_qsize=10, timeout=1):
         self.threads = set([])
+        self.lock = threading.Lock()
         self.queue = Queue.Queue()
         self.timeout = timeout
         self.max_qsize = max_qsize
 
     def run(self, fn):
-        self.queue.put(fn)
-        if len(self.threads) == 0 or self.queue.qsize() > self.max_qsize:
-            self.spawn_thread()
+        with self.lock:
+            self.queue.put(fn)
+            if len(self.threads) == 0 or self.queue.qsize() > self.max_qsize:
+                self.spawn_thread()
 
     def spawn_thread(self):
-        thread = None
-        def get_thread():
-            return thread
-        thread = threading.Thread(target=self.work, args=(get_thread,))
-        thread.setDaemon(True)
-        self.threads.add(thread)
-        thread.start()
+        with self.lock:
+            thread = None
+            def get_thread():
+                return thread
+            thread = threading.Thread(target=self.work, args=(get_thread,))
+            thread.setDaemon(True)
+            self.threads.add(thread)
+            thread.start()
 
     def on_error(self):
         traceback.print_exc()
