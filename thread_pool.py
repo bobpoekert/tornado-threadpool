@@ -8,7 +8,7 @@ class ThreadPool(object):
 
     def __init__(self, max_qsize=10, timeout=1):
         self.threads = set([])
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
         self.queue = Queue.Queue()
         self.timeout = timeout
         self.max_qsize = max_qsize
